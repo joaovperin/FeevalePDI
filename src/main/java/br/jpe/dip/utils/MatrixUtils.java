@@ -47,7 +47,19 @@ public class MatrixUtils {
      * @return double
      */
     public static final double calcMean(Matrix src) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        // TODO: Test that.
+        int[][] mtz = src.get();
+        int tLen = mtz.length;
+        double iLen = 0;
+        double sum = 0;
+        for (int i = 0; i < iLen; i++) {
+            int jLen = mtz[i].length;
+            for (int j = 0; j < jLen; j++) {
+                iLen++;
+                sum += mtz[i][j];
+            }
+        }
+        return (sum / tLen);
     }
 
     /**

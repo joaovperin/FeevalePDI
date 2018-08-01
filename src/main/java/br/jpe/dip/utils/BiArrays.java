@@ -28,8 +28,13 @@ public class BiArrays {
      * @return int[][]
      */
     public static final int[][] copy(int[][] src) {
-        // TODO: Return a copy
-        return src;
+        int[][] des = new int[src.length][];
+        for (int i = 0; i < src.length; i++) {
+            final int rowLen = src[i].length;
+            des[i] = new int[rowLen];
+            System.arraycopy(src[i], 0, des[i], 0, rowLen);
+        }
+        return des;
     }
 
 }
