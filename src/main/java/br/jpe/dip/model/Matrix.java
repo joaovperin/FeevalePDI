@@ -28,8 +28,13 @@ public class Matrix {
 
     /** Integer bidimensional array to store columns and rows */
     private final int mtz[][];
+
+    /** Matrix height */
+    private Integer height;
+    /** Matrix width */
+    private Integer width;
     /** Indicates if the matrix is a square */
-    private Boolean isSquare;
+    private Boolean isRegular;
 
     /**
      * Creates a matrix based on an bidimensional array
@@ -38,6 +43,26 @@ public class Matrix {
      */
     public Matrix(int[][] mtz) {
         this.mtz = BiArrays.copy(mtz);
+    }
+
+    /**
+     * A helper to create new matrixes
+     *
+     * @param mtz
+     * @return Matrix
+     */
+    public static final Matrix of(int[][] mtz) {
+        return new Matrix(mtz);
+    }
+
+    /**
+     * A helper to create new matrixes
+     *
+     * @param mtz
+     * @return Matrix
+     */
+    public static final Matrix of(Matrix mtz) {
+        return new Matrix(mtz.get());
     }
 
     /**
@@ -50,22 +75,63 @@ public class Matrix {
     }
 
     /**
-     * Returns true if the image is a square
+     * Returns the matrix height
      *
-     * @return boolean
+     * @return int
      */
-    public boolean isSquare() {
-        if (isSquare == null) {
-            checkIsSquare();
+    public int getHeight() {
+        if (height == null) {
+            obtainHeight();
         }
-        return isSquare;
+        return height;
     }
 
     /**
-     * Check if the image is a square
+     * Returns the matrix row's width or -1 if it's not a regular matrix
+     *
+     * @return int
      */
-    private void checkIsSquare() {
-        isSquare = MatrixUtils.isSquare(this);
+    public int getWidth() {
+        if (width == null) {
+            obtainWidth();
+        }
+        return width;
+    }
+
+    /**
+     * Returns true if the matrix is regular.
+     *
+     * A Regular matrix is a bidimensional array which all row columns length
+     * are equal to the number of rows, like a square.
+     *
+     * @return boolean
+     */
+    public boolean isRegular() {
+        if (isRegular == null) {
+            checkIsRegular();
+        }
+        return isRegular;
+    }
+
+    /**
+     * Check if the matrix is regular
+     */
+    private void checkIsRegular() {
+        isRegular = MatrixUtils.isRegular(this);
+    }
+
+    /**
+     * Obtains the width
+     */
+    private void obtainWidth() {
+        width = isRegular() ? mtz.length : -1;
+    }
+
+    /**
+     * Obtains the height
+     */
+    private void obtainHeight() {
+        height = mtz.length;
     }
 
 }
