@@ -1,4 +1,6 @@
 
+import br.jpe.dip.p5.Color;
+import br.jpe.dip.p5.TestPerin;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -6,6 +8,8 @@ Canvas canvas  = new Canvas(640, 640, Color.WHITE);
 
 void setup(){
   size(640, 640);
+  // Test Hello world from java library :D
+  TestPerin.hello();
 }
 
 void draw(){
@@ -18,14 +22,6 @@ void draw(){
        r.render();
   }
   
-}
-enum Color {
-  RED(200,30,20),
-  BLACK(0,0,0),
-  WHITE(255,255,255);
-  // Constructors
-  private Color(int r,int g,int b){this.r=r; this.g=g; this.b=b;}
-  int r, g, b;
 }
 
 class Canvas {
