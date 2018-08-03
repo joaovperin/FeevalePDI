@@ -16,8 +16,10 @@
  */
 package br.jpe.dip.utils;
 
-import static org.junit.Assert.assertEquals;
+import java.util.Arrays;
+import static org.junit.Assert.assertFalse;
 import org.junit.Test;
+import static core.tests.TestUtils.*;
 
 /**
  * Unit tests of the BiArrays util class
@@ -25,10 +27,10 @@ import org.junit.Test;
 public class BiArraysTest {
 
     /** Sample for the tests */
-    final int[][] sample = new int[][] {
-        new int[] { 3, 6, 9 },
-        new int[] { 2, 4, 8 },
-        new int[] { 1, 2, 3 }
+    final int[][] sample = new int[][]{
+        new int[]{3, 6, 9},
+        new int[]{2, 4, 8},
+        new int[]{1, 2, 3}
     };
 
     /**
@@ -36,28 +38,28 @@ public class BiArraysTest {
      */
     @Test
     public void copy() {
-        int[][] expected = new int[][] {
-            new int[] { 3, 6, 9 },
-            new int[] { 2, 4, 8 },
-            new int[] { 1, 2, 3 }
+        int[][] expected = new int[][]{
+            new int[]{3, 6, 9},
+            new int[]{2, 4, 8},
+            new int[]{1, 2, 3}
         };
         assertArrayEqual(expected, BiArrays.copy(sample));
     }
 
     /**
-     * Asserts that two bidimensional arrays are equal
-     *
-     * @param expected
-     * @param received
+     * Asserts the reference is not the same
      */
-    private void assertArrayEqual(int[][] expected, int[][] received) {
-        assertEquals("Wrong number of rows", expected.length, received.length);
-        for (int i = 0; i < expected.length; i++) {
-            assertEquals("Wrong number of columns on row " + i, expected[i].length, received[i].length);
-            for (int j = 0; j < expected[i].length; j++) {
-                assertEquals("Wrong value on row/column " + i + ":" + j, expected[i][j], received[i][j]);
-            }
-        }
+    @Test
+    public void reference() {
+        assertFalse(sample == BiArrays.copy(sample));
+    }
+
+    /**
+     * Asserts the reference is not the same
+     */
+    @Test
+    public void equality() {
+        assertFalse(Arrays.equals(sample, BiArrays.copy(sample)));
     }
 
 }

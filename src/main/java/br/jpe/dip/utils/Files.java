@@ -16,26 +16,37 @@
  */
 package br.jpe.dip.utils;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
- * Helpful class to work with bidimensional arrays
+ * Reads and manipulates files
  */
-public class BiArrays {
+public class Files {
 
     /**
-     * Copy a bidimensional array of integers
+     * Reads a file
      *
      * @param src
-     * @return int[][]
+     * @return byte[]
+     * @throws IOException
      */
-    public static final int[][] copy(int[][] src) {
-        final int iLen = src.length;
-        int[][] des = new int[iLen][];
-        for (int i = 0; i < iLen; i++) {
-            final int jLen = src[i].length;
-            des[i] = new int[jLen];
-            System.arraycopy(src[i], 0, des[i], 0, jLen);
+    public static final byte[] read(String src) throws IOException {
+        return read(new File(src));
+    }
+
+    /**
+     * Reads a file
+     *
+     * @param src
+     * @return byte[]
+     * @throws IOException
+     */
+    public static final byte[] read(File src) throws IOException {
+        if (!src.exists() || !src.isFile()) {
+            throw new IOException();
         }
-        return des;
+        return java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(src.toURI()));
     }
 
 }
