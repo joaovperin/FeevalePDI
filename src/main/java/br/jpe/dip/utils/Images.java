@@ -29,15 +29,19 @@ import javax.imageio.ImageIO;
  */
 public class Images {
 
-    /**
-     * Reads an image
-     *
-     * @param filename
-     * @return BufferedImage
-     * @throws IOException
-     */
+    // Shortcut to read from a filename
     public static BufferedImage read(String filename) throws IOException {
         return read(new File(filename));
+    }
+
+    // Shortcut to read from a filename
+    public static final int[][] getAsGrayscaleMatrix(String src) throws IOException {
+        return getAsGrayscaleMatrix(new File(src));
+    }
+
+    // Shortcut to read from a filename
+    public static int[][] getAsMatrix(String filename) throws IOException {
+        return getAsMatrix(new File(filename));
     }
 
     /**
@@ -52,82 +56,71 @@ public class Images {
     }
 
     /**
-     * Reads an image as a matrix
+     * Reads an image and returns that as a matrix
      *
      * @param src
      * @return int[][]
      * @throws IOException
      */
     public static final int[][] getAsMatrix(File src) throws IOException {
-        // Checks if the file exists
-        if (!src.exists()) {
-            throw new IIOException("Isto Non Exziste! " + src.getAbsolutePath());
-        }
-
-        BufferedImage read = read(src);
-        WritableRaster raster = read.getRaster();
-
-        // Validate the number of bands
-        int numBands = raster.getNumBands();
-        if (numBands <= 0) {
-            throw new IIOException("Not a valid image.");
-        }
-
-        int iLen = raster.getWidth();
-        int jLen = raster.getHeight();
-        int[][] mtz = new int[iLen][jLen];
-
-        // Loads the samples of the first band into an integer bi-array
-        for (int i = 0; i < iLen; i++) {
-            for (int j = 0; j < jLen; j++) {
-                mtz[i][j] = raster.getSample(i, j, 0);
-            }
-        }
-        return mtz;
-    }
-
-    public static final int[][] getAsGrayscaleMatrix(String src) throws IOException {
-        return getAsGrayscaleMatrix(new File(src));
-    }
-
-    public static final int[][] getAsGrayscaleMatrix(File src) throws IOException {
-        // Checks if the file exists
-        if (!src.exists()) {
-            throw new IIOException("Isto Non Exziste! " + src.getAbsolutePath());
-        }
-
-        BufferedImage read = read(src);
-        WritableRaster raster = read.getRaster();
-
-        // Validate the number of bands
-        int numBands = raster.getNumBands();
-        if (numBands <= 0) {
-            throw new IIOException("Not a valid image.");
-        }
-
-        int iLen = raster.getWidth();
-        int jLen = raster.getHeight();
-        int[][] mtz = new int[iLen][jLen];
-
-        // Loads the samples of the first band into an integer bi-array
-        for (int i = 0; i < iLen; i++) {
-            for (int j = 0; j < jLen; j++) {
-                Color color = new Color(read.getRGB(i, j));
-                mtz[i][j] = ((color.getRed() + color.getGreen() + color.getBlue()) / 3);
-            }
-        }
-        return mtz;
+        return processImageAsMatrix(src, (read, raster, i, j) -> raster.getSample(i, j, 0));
     }
 
     /**
-     * Reads an image as a matrix
+     * Reads an image and returns that as a grayscale matrix
      *
-     * @param filename
+     * @param src
      * @return int[][]
      * @throws IOException
      */
-    public static int[][] getAsMatrix(String filename) throws IOException {
-        return getAsMatrix(new File(filename));
+    public static final int[][] getAsGrayscaleMatrix(File src) throws IOException {
+        return processImageAsMatrix(src, (read, raster, i, j) -> {
+            Color color = new Color(read.getRGB(i, j));
+            return ((color.getRed() + color.getGreen() + color.getBlue()) / 3);
+        });
+    }
+
+    /**
+     * Process an image as a matrix
+     *
+     * @param src
+     * @param script
+     * @return int[][]
+     * @throws IOException
+     */
+    private static int[][] processImageAsMatrix(File src, Script script) throws IOException {
+        // Checks if the file exists
+        if (!src.exists()) {
+            throw new IIOException("Isto Non Exziste! " + src.getAbsolutePath());
+        }
+
+        BufferedImage read = read(src);
+        WritableRaster raster = read.getRaster();
+
+        // Validate the number of bands
+        int numBands = raster.getNumBands();
+        if (numBands <= 0) {
+            throw new IIOException("Not a valid image.");
+        }
+
+        int iLen = raster.getWidth();
+        int jLen = raster.getHeight();
+        int[][] mtz = new int[iLen][jLen];
+
+        // Loads the samples of the first band into an integer bi-array
+        for (int i = 0; i < iLen; i++) {
+            for (int j = 0; j < jLen; j++) {
+                mtz[i][j] = script.run(read, raster, i, j);
+            }
+        }
+        return mtz;
+    }
+
+    @FunctionalInterface
+    private interface Script {
+
+        // Script to proccess an image
+        public int run(BufferedImage read, WritableRaster raster, int i, int j);
     }
 
 }
