@@ -18,8 +18,10 @@ package br.jpe.dip.utils;
 
 import br.jpe.dip.model.Matrix;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Helpful class to work with matrixes
@@ -68,7 +70,11 @@ public class MatrixUtils {
     }
 
     /**
-     * Obtain and returns the arithmetic mean (average) of the matrix
+     * Obtain and returns the arithmetic mean (average) of the matrix a.k.a
+     * Média.
+     *
+     * The mean indicates brightness and medium intensity, and it can be used to
+     * unsharp edges and to smooth images.
      *
      * @param src
      * @return double
@@ -88,30 +94,30 @@ public class MatrixUtils {
     }
 
     /**
-     * Obtain and returns the median of the matrix
+     * Obtain and returns the median of the matrix a.k.a Mediana
+     *
+     * A median is the value in the middle position of the sorted image
+     * grayscale histogram.
      *
      * @param src
      * @return double
      */
     public static final double calcMedian(Matrix src) {
-        int[][] mtz = src.get();
-        final double iLen = mtz.length;
-        double tLen = calcNumberElements(src), n = 0;
-        // Obtains the center value
-        int v = (int) Math.round(tLen / 2);
-        for (int i = 0; i < iLen; i++) {
-            final double jLen = mtz[i].length;
-            for (int j = 0; j < jLen; j++) {
-                if (++n == v) {
-                    return mtz[i][j];
-                }
-            }
+        Map<Integer, Integer> h = createHistogram(src);
+        List<Integer> list = h.keySet().stream().sorted().collect(Collectors.toList());
+        final int size = list.size();
+        int middle = Math.floorDiv(size, 2);
+        if (middle % 2 == 0) {
+            return Math.round((list.get(middle) + list.get(middle + 1)) / 2);
         }
-        return -1;
+        return Math.round(list.get(middle));
     }
 
     /**
-     * Obtain and returns the variance of the matrix
+     * Obtain and returns the variance of the matrix a.k.a Variância
+     *
+     * As the variation of the gray shades, it indicates the contrast, the
+     * texture and is the mirrored histogram
      *
      * @param src
      * @return double
@@ -152,6 +158,8 @@ public class MatrixUtils {
 
     /**
      * Obtain and returns the mode of the matrix
+     *
+     * It's the most frequent value on the matrix
      *
      * @param src
      * @return double

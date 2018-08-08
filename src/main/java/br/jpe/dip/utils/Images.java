@@ -31,6 +31,17 @@ public class Images {
     /**
      * Reads an image
      *
+     * @param filename
+     * @return BufferedImage
+     * @throws IOException
+     */
+    public static BufferedImage read(String filename) throws IOException {
+        return read(new File(filename));
+    }
+
+    /**
+     * Reads an image
+     *
      * @param src
      * @return BufferedImage
      * @throws IOException
@@ -47,6 +58,11 @@ public class Images {
      * @throws IOException
      */
     public static final int[][] getAsMatrix(File src) throws IOException {
+        // Checks if the file exists
+        if (!src.exists()) {
+            throw new IIOException("Isto Non Exziste!");
+        }
+
         BufferedImage read = read(src);
         WritableRaster raster = read.getRaster();
 
@@ -67,6 +83,17 @@ public class Images {
             }
         }
         return mtz;
+    }
+
+    /**
+     * Reads an image as a matrix
+     *
+     * @param filename
+     * @return int[][]
+     * @throws IOException
+     */
+    public static int[][] getAsMatrix(String filename) throws IOException {
+        return getAsMatrix(new File(filename));
     }
 
 }

@@ -16,12 +16,15 @@
  */
 package br.jpe.dip;
 
+import br.jpe.dip.challenges.Challenge1;
 import br.jpe.dip.screen.Window;
 import javafx.application.Application;
 import javax.swing.UIManager;
 
 /**
  * Main Entry Point
+ *
+ * @author joaovperin
  */
 public class Main {
 
@@ -33,8 +36,16 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         System.out.println("*** Welcome to Digital Image Processing (DIP).");
+
+        // Hardcoded first exercise
+        args = new String[]{"D:\\Samples\\Figura_Desafio_1.png"};
+
         if (args == null || args.length == 0) {
             startWindow();
+        } else {
+            // TODO: Create a command line args parser to select exercise
+            String fn = args[0];
+            new Challenge1(fn).run();
         }
     }
 
