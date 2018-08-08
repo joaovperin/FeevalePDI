@@ -16,23 +16,11 @@
  */
 package br.jpe.dip.screen;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
-
 /**
- * FXML Controller class
+ * Interface for all view controllers
  *
- * @author Perin
+ * @author joaovperin
  */
-public class InicioController implements Initializable {
+public interface Controller {
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
 }

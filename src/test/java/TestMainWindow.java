@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.jpe.dip.screen;
+
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,7 +30,7 @@ import javax.swing.JTextField;
  *
  * @author Perin
  */
-public class MainWindow {
+public class TestMainWindow {
 
     private final JFrame frame;
     private final JPanel panel;
@@ -41,7 +41,7 @@ public class MainWindow {
 
     private final Dimension winDimension;
 
-    public MainWindow() {
+    public TestMainWindow() {
         this.frame = new JFrame();
         this.panel = new JPanel();
         this.chooser = new JFileChooser();
@@ -61,7 +61,8 @@ public class MainWindow {
         this.frame.setSize(toDimension(0.92f, 0.86f));
         this.frame.setResizable(true);
         this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.frame.setLocation(winDimension.width / 2 - this.frame.getSize().width / 2, winDimension.height / 2 - this.frame.getSize().height / 2);
+        this.frame.setLocation(winDimension.width / 2 - this.frame.getSize().width / 2, winDimension.height / 2 -
+                this.frame.getSize().height / 2);
 
         this.panel.setBackground(new Color(40, 20, 30));
         this.frame.add(this.panel);
@@ -104,7 +105,7 @@ public class MainWindow {
     }
 
     private String[] supportedExtensions() {
-        return new String[]{".jpg, .png", "jpg", "jpeg", "JPG", "JPEG", "png", "PNG", "BMP", "bmp"};
+        return new String[] { ".jpg, .png", "jpg", "jpeg", "JPG", "JPEG", "png", "PNG", "BMP", "bmp" };
     }
 
 }

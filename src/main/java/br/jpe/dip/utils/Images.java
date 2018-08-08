@@ -16,6 +16,7 @@
  */
 package br.jpe.dip.utils;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
@@ -60,7 +61,7 @@ public class Images {
     public static final int[][] getAsMatrix(File src) throws IOException {
         // Checks if the file exists
         if (!src.exists()) {
-            throw new IIOException("Isto Non Exziste!");
+            throw new IIOException("Isto Non Exziste! " + src.getAbsolutePath());
         }
 
         BufferedImage read = read(src);
@@ -80,6 +81,39 @@ public class Images {
         for (int i = 0; i < iLen; i++) {
             for (int j = 0; j < jLen; j++) {
                 mtz[i][j] = raster.getSample(i, j, 0);
+            }
+        }
+        return mtz;
+    }
+
+    public static final int[][] getAsGrayscaleMatrix(String src) throws IOException {
+        return getAsGrayscaleMatrix(new File(src));
+    }
+
+    public static final int[][] getAsGrayscaleMatrix(File src) throws IOException {
+        // Checks if the file exists
+        if (!src.exists()) {
+            throw new IIOException("Isto Non Exziste! " + src.getAbsolutePath());
+        }
+
+        BufferedImage read = read(src);
+        WritableRaster raster = read.getRaster();
+
+        // Validate the number of bands
+        int numBands = raster.getNumBands();
+        if (numBands <= 0) {
+            throw new IIOException("Not a valid image.");
+        }
+
+        int iLen = raster.getWidth();
+        int jLen = raster.getHeight();
+        int[][] mtz = new int[iLen][jLen];
+
+        // Loads the samples of the first band into an integer bi-array
+        for (int i = 0; i < iLen; i++) {
+            for (int j = 0; j < jLen; j++) {
+                Color color = new Color(read.getRGB(i, j));
+                mtz[i][j] = ((color.getRed() + color.getGreen() + color.getBlue()) / 3);
             }
         }
         return mtz;

@@ -17,7 +17,8 @@
 package br.jpe.dip;
 
 import br.jpe.dip.challenges.Challenge1;
-import br.jpe.dip.screen.Window;
+import br.jpe.dip.core.utils.Systems;
+import br.jpe.dip.screen.DigitalImageProcessingApp;
 import javafx.application.Application;
 import javax.swing.UIManager;
 
@@ -36,12 +37,9 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         System.out.println("*** Welcome to Digital Image Processing (DIP).");
-
-        // Hardcoded first exercise
-        args = new String[]{"D:\\Samples\\Figura_Desafio_1.png"};
-
+        // Command line or window based
         if (args == null || args.length == 0) {
-            startWindow();
+            startGraphicalUserInterfaceApplication();
         } else {
             // TODO: Create a command line args parser to select exercise
             String fn = args[0];
@@ -49,10 +47,18 @@ public class Main {
         }
     }
 
-    private static void startWindow(String... args) throws Exception {
-        final String lookAndFeel = "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel";
+    /**
+     * Starts the GUI application
+     *
+     * @param args
+     * @throws Exception
+     */
+    private static void startGraphicalUserInterfaceApplication(String... args) throws Exception {
+        final String lookAndFeel = Systems.isWindows() ?
+                "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel" :
+                "javax.swing.plaf.metal.MetalLookAndFeel";
         UIManager.setLookAndFeel(lookAndFeel);
-        Application.launch(Window.class, args);
+        Application.launch(DigitalImageProcessingApp.class, args);
     }
 
 }
