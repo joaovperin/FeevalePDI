@@ -3,6 +3,10 @@ package fxml;
 import javafx.scene.canvas.*;
 import javafx.scene.text.*;
 import javafx.geometry.*;
+import java.lang.*;
+import java.net.*;
+import java.util.*;
+import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
@@ -69,6 +73,8 @@ public abstract class InicioBase extends AnchorPane {
         canvas.setHeight(468.0);
         canvas.setLayoutX(7.0);
         canvas.setLayoutY(8.0);
+        canvas.setOnMousePressed(this::canvasOnMousePressed);
+        canvas.setOnMouseReleased(this::canvasOnMouseReleased);
         canvas.setWidth(660.0);
 
         pane0.getChildren().add(textField);
@@ -78,11 +84,12 @@ public abstract class InicioBase extends AnchorPane {
         pane.getChildren().add(pane1);
         getChildren().add(pane);
 
-        onInit();
     }
 
-    protected abstract void onInit();
-
     protected abstract void openFileBrowser(javafx.scene.input.MouseEvent mouseEvent);
+
+    protected abstract void canvasOnMousePressed(javafx.scene.input.MouseEvent mouseEvent);
+
+    protected abstract void canvasOnMouseReleased(javafx.scene.input.MouseEvent mouseEvent);
 
 }

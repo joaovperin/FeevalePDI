@@ -29,9 +29,38 @@ import javafx.scene.paint.Color;
  */
 public class InicioController extends InicioBase implements Controller {
 
+    /** The Canvas graphic context */
+    private final GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+
+    {
+        double canvasWidth = graphicsContext.getCanvas().getWidth();
+        double canvasHeight = graphicsContext.getCanvas().getHeight();
+
+        graphicsContext.setFill(Color.LIGHTGRAY);
+        graphicsContext.setStroke(Color.BLACK);
+        graphicsContext.setLineWidth(5);
+
+        graphicsContext.fill();
+        graphicsContext.strokeRect(
+                0, //x of the upper left corner
+                0, //y of the upper left corner
+                canvasWidth, //width of the rectangle
+                canvasHeight);  //height of the rectangle
+
+        graphicsContext.setLineWidth(1);
+        image = new Image("file:///Users/Perin/Documents/Repositorios/DigitalImageProcessing/samples/lena.png");
+    }
+
+    /** Coordinates of the mouse events */
     double x0, y0, x1, y1;
+    /** The image */
     private Image image;
 
+    /**
+     * Opens the file browser
+     *
+     * @param mouseEvent
+     */
     @Override
     protected void openFileBrowser(MouseEvent mouseEvent) {
         System.out.println("*** Not implemented yet.");
@@ -40,51 +69,22 @@ public class InicioController extends InicioBase implements Controller {
     }
 
     @Override
-    protected void onInit() {
-        final GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-        initDraw(graphicsContext);
-
-        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent event) -> {
-            x0 = event.getX();
-            y0 = event.getY();
-        });
-
-        canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, (MouseEvent event) -> {
-        });
-
-        canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (MouseEvent event) -> {
-            x1 = event.getX();
-            y1 = event.getY();
-
-            double x = (x0 > x1) ? x1 : x0;
-            double y = (y0 > y1) ? y1 : y0;
-            double w = (x0 > x1) ? x0 - x1 : x1 - x0;
-            double h = (y0 > y1) ? y0 - y1 : y1 - y0;
-
-            graphicsContext.drawImage(image, x, y, w, h);
-        });
+    protected void canvasOnMousePressed(MouseEvent evt) {
+        x0 = evt.getX();
+        y0 = evt.getY();
     }
 
-    private void initDraw(GraphicsContext gc) {
+    @Override
+    protected void canvasOnMouseReleased(MouseEvent event) {
+        x1 = event.getX();
+        y1 = event.getY();
 
-        double canvasWidth = gc.getCanvas().getWidth();
-        double canvasHeight = gc.getCanvas().getHeight();
+        double x = (x0 > x1) ? x1 : x0;
+        double y = (y0 > y1) ? y1 : y0;
+        double w = (x0 > x1) ? x0 - x1 : x1 - x0;
+        double h = (y0 > y1) ? y0 - y1 : y1 - y0;
 
-        gc.setFill(Color.LIGHTGRAY);
-        gc.setStroke(Color.BLACK);
-        gc.setLineWidth(5);
-
-        gc.fill();
-        gc.strokeRect(
-                0, //x of the upper left corner
-                0, //y of the upper left corner
-                canvasWidth, //width of the rectangle
-                canvasHeight);  //height of the rectangle
-
-        gc.setLineWidth(1);
-
-        image = new Image("file:///Users/Perin/Documents/Repositorios/DigitalImageProcessing/samples/lena.png");
-//        image = new Image(getClass().getResourceAsStream(new File("C:\\Users\\Perin\\Documents\\Repositorios\\DigitalImageProcessing\\samples\\lena.png"))));
+        graphicsContext.drawImage(image, x, y, w, h);
     }
 
 }

@@ -32,7 +32,7 @@
                 </Pane>
                 <Pane layoutX="10.0" layoutY="10.0" prefHeight="477.0" prefWidth="668.0" style="-fx-border-color: black;">
                <children>
-                  <Canvas fx:id="canvas" height="468.0" layoutX="7.0" layoutY="8.0" width="660.0" />
+                  <Canvas fx:id="canvas" height="468.0" layoutX="7.0" layoutY="8.0" onMousePressed="#canvasOnMousePressed" onMouseReleased="#canvasOnMouseReleased" width="660.0" />
                </children></Pane>
             </children>
         </Pane>
