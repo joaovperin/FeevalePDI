@@ -17,6 +17,8 @@
 package fxml;
 
 import br.jpe.dip.screen.Controller;
+import java.io.File;
+import java.io.InputStream;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -48,7 +50,9 @@ public class InicioController extends InicioBase implements Controller {
                 canvasHeight);  //height of the rectangle
 
         graphicsContext.setLineWidth(1);
-        image = new Image("file:///Users/Perin/Documents/Repositorios/DigitalImageProcessing/samples/lena.png");
+
+        textField.setText("lena.png");
+        image = getImage(textField.getText());
     }
 
     /** Coordinates of the mouse events */
@@ -85,6 +89,35 @@ public class InicioController extends InicioBase implements Controller {
         double h = (y0 > y1) ? y0 - y1 : y1 - y0;
 
         graphicsContext.drawImage(image, x, y, w, h);
+    }
+
+    @Override
+    protected void reloadImage(MouseEvent event) {
+        image = getImage(textField.getText());
+    }
+
+    private Image getImage(String filename) {
+        // Checks file name
+        if (filename == null || filename.trim().isEmpty()) {
+            System.out.println("*** Invalid filename");
+            return null;
+        }
+        // Checks file exists
+        if (new File(filename).exists()) {
+            final String file = "file://";
+            // Returns with the "file://" protocol prefix
+            if (filename.startsWith(file)) {
+                return new Image(filename);
+            }
+            return new Image(file.concat(filename));
+        }
+        // Get the image as a resource
+        InputStream resourceImg = getClass().getClassLoader().getResourceAsStream(filename);
+        if (resourceImg != null) {
+            return new Image(resourceImg);
+        }
+        System.out.println("*** Image doesn't seems to exist in the resources folder :/");
+        return null;
     }
 
 }
