@@ -16,7 +16,9 @@
  */
 package br.jpe.dip.screen;
 
+import br.jpe.dip.utils.Images;
 import fxml.InicioController;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -40,6 +42,12 @@ public class DigitalImageProcessingApp extends Application {
 
         Scene scene = new Scene(root);
         primaryStage.setTitle("Feevale DIP");
+        try {
+            // Try to set lena icon for the center pane
+            primaryStage.getIcons().add(Images.getImage("lena.png"));
+        } catch (IOException e) {
+            System.out.println("***".concat(e.getMessage()));
+        }
         primaryStage.setScene(scene);
         primaryStage.show();
     }

@@ -21,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
+import javafx.scene.image.Image;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
@@ -42,6 +43,30 @@ public class Images {
     // Shortcut to read from a filename
     public static int[][] getAsMatrix(String filename) throws IOException {
         return getAsMatrix(new File(filename));
+    }
+
+    /**
+     * Reads and return an image from the file system
+     *
+     * @param filename
+     * @return Image
+     * @throws IOException
+     */
+    public static Image getImage(String filename) throws IOException {
+        String myFilename = Files.resolveFileName(filename);
+        // Checks file exists
+        if (new File(myFilename).exists()) {
+            return new Image(myFilename);
+        }
+        // TODO: FIX THAT.
+        return new Image(new File(myFilename).getAbsolutePath());
+//        // Get the image as a resource
+//        InputStream resourceImg = Files.class.getClassLoader().getResourceAsStream(myFilename);
+//        if (resourceImg != null) {
+//            new Image();
+//            return new Image(resourceImg);
+//        }
+//        throw new IOException("Image doesn't seems to exist in the resources folder :/");
     }
 
     /**

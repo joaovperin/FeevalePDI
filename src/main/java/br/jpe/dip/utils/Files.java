@@ -18,6 +18,7 @@ package br.jpe.dip.utils;
 
 import java.io.File;
 import java.io.IOException;
+import br.jpe.dip.core.utils.Systems;
 
 /**
  * Reads and manipulates files
@@ -47,6 +48,39 @@ public class Files {
             throw new IOException();
         }
         return java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(src.toURI()));
+    }
+
+    /**
+     * Resolves the filename
+     *
+     * @param filename
+     * @return String
+     * @throws IOException
+     */
+    public static String resolveFileName(String filename) throws IOException {
+        // Checks file name
+        if (filename == null || filename.trim().isEmpty()) {
+            throw new IOException("*** Invalid filename");
+        }
+        // Checks file exists
+        if (new File(filename).exists()) {
+            final String file = "file://";
+            // Returns with the "file://" protocol prefix
+            if (filename.startsWith(file)) {
+                return filename;
+            }
+            return file.concat(filename);
+        }
+
+        // Resolves path
+        String path = Files.class.getClassLoader().getResource(filename).getPath();
+        if (Systems.isWindows() && path.startsWith("/")) {
+            path = path.replaceFirst("\\/", "");
+        }
+        System.out.println("*** -> Using path: " + path);
+
+        // Return the name as is, for using as a resource
+        return path;
     }
 
 }

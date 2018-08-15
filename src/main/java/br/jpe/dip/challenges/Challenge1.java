@@ -17,6 +17,7 @@
 package br.jpe.dip.challenges;
 
 import br.jpe.dip.model.Matrix;
+import br.jpe.dip.utils.Files;
 import br.jpe.dip.utils.Images;
 import br.jpe.dip.utils.MatrixUtils;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class Challenge1 {
      */
     public Challenge1(String filename) throws IOException {
         Objects.requireNonNull(filename, "Imagename must be valid");
-        this.src = Images.getAsMatrix(filename);
+        this.src = Images.getAsMatrix(Files.resolveFileName(filename));
     }
 
     /**

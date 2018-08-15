@@ -37,6 +37,11 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         System.out.println("*** Welcome to Digital Image Processing (DIP).");
+
+        args = new String[]{
+            "Figura_Desafio_1.png"
+        };
+
         // Command line or window based
         if (args == null || args.length == 0) {
             startGraphicalUserInterfaceApplication();
