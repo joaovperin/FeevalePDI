@@ -50,37 +50,52 @@ public class Files {
         return java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(src.toURI()));
     }
 
+    // Resolves file name without adding file protocol prefix
+    public static String resolveFileName(String filename) throws IOException {
+        return resolveFileName(filename, true);
+    }
+
     /**
      * Resolves the filename
      *
      * @param filename
+     * @param resolveFileProtocol
      * @return String
      * @throws IOException
      */
-    public static String resolveFileName(String filename) throws IOException {
+    public static String resolveFileName(String filename, boolean resolveFileProtocol) throws IOException {
         // Checks file name
         if (filename == null || filename.trim().isEmpty()) {
             throw new IOException("*** Invalid filename");
         }
         // Checks file exists
         if (new File(filename).exists()) {
-            final String file = "file://";
-            // Returns with the "file://" protocol prefix
-            if (filename.startsWith(file)) {
-                return filename;
-            }
-            return file.concat(filename);
+            return resolveFileProtocol ? resolveFileProtocolPrefix(filename) : filename;
         }
 
         // Resolves path
         String path = Files.class.getClassLoader().getResource(filename).getPath();
-        if (Systems.isWindows() && path.startsWith("/")) {
+        if (Systems.isWindows() && path != null && path.startsWith("/")) {
             path = path.replaceFirst("\\/", "");
         }
         System.out.println("*** -> Using path: " + path);
 
         // Return the name as is, for using as a resource
-        return path;
+        return resolveFileProtocol ? resolveFileProtocolPrefix(path) : path;
+    }
+
+    /**
+     * Resolves the prefix of the 'file://' protocol
+     *
+     * @param filename
+     * @return String
+     */
+    public static String resolveFileProtocolPrefix(String filename) {
+        final String file = "file://";
+        if (filename.startsWith(file)) {
+            return filename;
+        }
+        return file.concat(filename);
     }
 
 }

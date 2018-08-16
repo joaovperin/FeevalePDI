@@ -34,6 +34,11 @@ public class InicioController extends InicioBase implements Controller {
     /** The Canvas graphic context */
     private final GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
+    /** Coordinates of the mouse events */
+    double x0, y0, x1, y1;
+    /** The image */
+    private Image image;
+
     {
         double canvasWidth = graphicsContext.getCanvas().getWidth();
         double canvasHeight = graphicsContext.getCanvas().getHeight();
@@ -53,12 +58,9 @@ public class InicioController extends InicioBase implements Controller {
 
         textField.setText("lena.png");
         image = getImage(textField.getText());
-    }
 
-    /** Coordinates of the mouse events */
-    double x0, y0, x1, y1;
-    /** The image */
-    private Image image;
+        graphicsContext.drawImage(image, 0, 0, canvasWidth, canvasHeight);
+    }
 
     /**
      * Opens the file browser

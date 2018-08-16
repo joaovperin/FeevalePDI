@@ -38,10 +38,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
         System.out.println("*** Welcome to Digital Image Processing (DIP).");
 
-        args = new String[]{
-            "Figura_Desafio_1.png"
-        };
-
+//        args = new String[]{
+//            "Figura_Desafio_1.png"
+//        };
         // Command line or window based
         if (args == null || args.length == 0) {
             startGraphicalUserInterfaceApplication();
@@ -59,9 +58,9 @@ public class Main {
      * @throws Exception
      */
     private static void startGraphicalUserInterfaceApplication(String... args) throws Exception {
-        final String lookAndFeel = Systems.isWindows() ?
-                "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel" :
-                "javax.swing.plaf.metal.MetalLookAndFeel";
+        final String lookAndFeel = Systems.isWindows()
+                ? "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel"
+                : "javax.swing.plaf.metal.MetalLookAndFeel";
         UIManager.setLookAndFeel(lookAndFeel);
         Application.launch(DigitalImageProcessingApp.class, args);
     }

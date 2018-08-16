@@ -41,13 +41,15 @@ public class DigitalImageProcessingApp extends Application {
         AnchorPane root = new InicioController();
 
         Scene scene = new Scene(root);
+//        try {
+//            // Try to set lena icon for the center pane
+//            primaryStage.getIcons().add(Images.getImage("lena.png"));
+//        } catch (IOException e) {
+//            System.out.println("***".concat(e.getMessage()));
+//        }
+        // Stage config
         primaryStage.setTitle("Feevale DIP");
-        try {
-            // Try to set lena icon for the center pane
-            primaryStage.getIcons().add(Images.getImage("lena.png"));
-        } catch (IOException e) {
-            System.out.println("***".concat(e.getMessage()));
-        }
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

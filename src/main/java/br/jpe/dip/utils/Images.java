@@ -45,6 +45,10 @@ public class Images {
         return getAsMatrix(new File(filename));
     }
 
+    public static Image getImage(String filename) throws IOException {
+        return getImage(filename, true);
+    }
+
     /**
      * Reads and return an image from the file system
      *
@@ -52,21 +56,8 @@ public class Images {
      * @return Image
      * @throws IOException
      */
-    public static Image getImage(String filename) throws IOException {
-        String myFilename = Files.resolveFileName(filename);
-        // Checks file exists
-        if (new File(myFilename).exists()) {
-            return new Image(myFilename);
-        }
-        // TODO: FIX THAT.
-        return new Image(new File(myFilename).getAbsolutePath());
-//        // Get the image as a resource
-//        InputStream resourceImg = Files.class.getClassLoader().getResourceAsStream(myFilename);
-//        if (resourceImg != null) {
-//            new Image();
-//            return new Image(resourceImg);
-//        }
-//        throw new IOException("Image doesn't seems to exist in the resources folder :/");
+    public static Image getImage(String filename, boolean resolveFileProtocol) throws IOException {
+        return new Image(Files.resolveFileName(filename, resolveFileProtocol));
     }
 
     /**
