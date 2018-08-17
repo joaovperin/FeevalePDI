@@ -16,11 +16,20 @@
  */
 package br.jpe.dip.screen;
 
+import javafx.stage.Stage;
+
 /**
  * Interface for all view controllers
  *
  * @author joaovperin
  */
 public interface Controller {
+
+    /**
+     * Sets the stage where the controller is running
+     *
+     * @param st
+     */
+    public void setStage(Stage st);
 
 }

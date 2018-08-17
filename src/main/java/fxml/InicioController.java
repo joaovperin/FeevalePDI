@@ -23,6 +23,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -38,6 +40,8 @@ public class InicioController extends InicioBase implements Controller {
     double x0, y0, x1, y1;
     /** The image */
     private Image image;
+    /** Stage where to display things */
+    private Stage st;
 
     {
         double canvasWidth = graphicsContext.getCanvas().getWidth();
@@ -69,9 +73,22 @@ public class InicioController extends InicioBase implements Controller {
      */
     @Override
     protected void openFileBrowser(MouseEvent mouseEvent) {
-        System.out.println("*** Not implemented yet.");
-//        Dialogs.create().message("Hi!").showInformation();
-//        JOptionPane.showMessageDialog(null, "Not implemented yet.", "Oops!", JOptionPane.INFORMATION_MESSAGE);
+        File f = showFileChooserAndGetResult();
+        // TODO: Validate directory (can only accept images from resources folder)
+        if (f != null && f.exists()) {
+            textField.setText(f.getName());
+        }
+        System.out.println(f);
+    }
+
+    private File showFileChooserAndGetResult() {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter
+                = new FileChooser.ExtensionFilter("IMG files (*.(png || jpg))", "*.png", "*.jpg");
+        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.
+                setInitialDirectory(new File("C:\\Users\\Perin\\Desktop\\BKP\\_Docs\\Repositorios\\DigitalImageProcessing\\src\\main\\resources"));
+        return fileChooser.showOpenDialog(st);
     }
 
     @Override
@@ -96,6 +113,8 @@ public class InicioController extends InicioBase implements Controller {
     @Override
     protected void reloadImage(MouseEvent event) {
         image = getImage(textField.getText());
+        graphicsContext.drawImage(image, 0, 0, graphicsContext.getCanvas().getWidth(), graphicsContext.getCanvas().
+                getHeight());
     }
 
     private Image getImage(String filename) {
@@ -120,6 +139,12 @@ public class InicioController extends InicioBase implements Controller {
         }
         System.out.println("*** Image doesn't seems to exist in the resources folder :/");
         return null;
+    }
+
+    // Sets the stage of this controller
+    @Override
+    public void setStage(Stage st) {
+        this.st = st;
     }
 
 }

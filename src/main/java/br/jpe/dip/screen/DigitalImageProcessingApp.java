@@ -16,12 +16,10 @@
  */
 package br.jpe.dip.screen;
 
-import br.jpe.dip.utils.Images;
 import fxml.InicioController;
-import java.io.IOException;
 import javafx.application.Application;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -38,9 +36,10 @@ public class DigitalImageProcessingApp extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        AnchorPane root = new InicioController();
+        Controller root = new InicioController();
+        root.setStage(primaryStage);
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene((Parent) root);
 //        try {
 //            // Try to set lena icon for the center pane
 //            primaryStage.getIcons().add(Images.getImage("lena.png"));
