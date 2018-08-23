@@ -17,7 +17,9 @@
 package fxml;
 
 import br.jpe.dip.screen.Controller;
+import br.jpe.dip.utils.Files;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -86,8 +88,15 @@ public class InicioController extends InicioBase implements Controller {
         FileChooser.ExtensionFilter extFilter
                 = new FileChooser.ExtensionFilter("IMG files (*.(png || jpg))", "*.png", "*.jpg");
         fileChooser.getExtensionFilters().add(extFilter);
-        fileChooser.
-                setInitialDirectory(new File("C:\\Users\\Perin\\Desktop\\BKP\\_Docs\\Repositorios\\DigitalImageProcessing\\src\\main\\resources"));
+
+        String initialGuessedDirectory
+                = "C:\\Users\\Perin\\Desktop\\BKP\\_Docs\\Repositorios\\DigitalImageProcessing\\src\\main\\resources";
+        try {
+            initialGuessedDirectory = new File(Files.resolveFileName("lena.jpg", false)).getParent();
+        } catch (IOException ex) {
+        }
+
+        fileChooser.setInitialDirectory(new File(initialGuessedDirectory));
         return fileChooser.showOpenDialog(st);
     }
 
@@ -107,6 +116,7 @@ public class InicioController extends InicioBase implements Controller {
         double w = (x0 > x1) ? x0 - x1 : x1 - x0;
         double h = (y0 > y1) ? y0 - y1 : y1 - y0;
 
+        // TODO: Set this to be done through configuration.
         graphicsContext.drawImage(image, x, y, w, h);
     }
 
