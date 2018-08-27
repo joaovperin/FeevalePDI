@@ -10,12 +10,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="583.0" prefWidth="710.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.InicioController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="710.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.InicioController">
     <stylesheets>
         <URL value="@/styles/inicio.css" />
     </stylesheets>
     <children>
-        <Pane id="bgPane" layoutX="10.0" layoutY="9.0" prefHeight="566.0" prefWidth="688.0" style="-fx-border-color: black;">
+        <Pane id="bgPane" layoutX="10.0" layoutY="9.0" prefHeight="621.0" prefWidth="688.0" style="-fx-border-color: black;">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
@@ -35,6 +35,12 @@
                <children>
                   <Canvas id="canvas" fx:id="canvas" height="468.0" layoutX="7.0" layoutY="8.0" onMousePressed="#canvasOnMousePressed" onMouseReleased="#canvasOnMouseReleased" width="660.0" />
                </children></Pane>
+            <Pane layoutX="10.0" layoutY="565.0" prefHeight="46.0" prefWidth="668.0" style="-fx-border-color: black;">
+               <children>
+                  <ChoiceBox id="cb_challenges" layoutX="14.0" layoutY="11.0" prefHeight="25.0" prefWidth="117.0" />
+                  <Button id="pb_challenges" layoutX="136.0" layoutY="11.0" mnemonicParsing="false" onMouseReleased="#runChallenge" text="Run" textAlignment="JUSTIFY" />
+               </children>
+            </Pane>
             </children>
         </Pane>
     </children>

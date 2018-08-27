@@ -41,7 +41,7 @@ public class Challenge1 {
      */
     public Challenge1(String filename) throws IOException {
         Objects.requireNonNull(filename, "Imagename must be valid");
-        this.src = Images.getAsMatrix(Files.resolveFileName(filename));
+        this.src = Images.getAsMatrix(Files.resolveFileName(filename, false));
     }
 
     /**
