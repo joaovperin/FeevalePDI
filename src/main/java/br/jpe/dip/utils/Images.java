@@ -95,6 +95,12 @@ public class Images {
             return ((color.getRed() + color.getGreen() + color.getBlue()) / 3);
         });
     }
+    public static final int[][] getAsGrayscaleMatrix(BufferedImage src) {
+        return processImageAsMatrix(src, (read, raster, i, j) -> {
+            Color color = new Color(read.getRGB(i, j));
+            return ((color.getRed() + color.getGreen() + color.getBlue()) / 3);
+        });
+    }
 
     /**
      * Process an image as a matrix
@@ -111,12 +117,16 @@ public class Images {
         }
 
         BufferedImage read = read(src);
+        return processImageAsMatrix(read, script);
+    }
+
+    private static int[][] processImageAsMatrix(BufferedImage read, Script script) {
         WritableRaster raster = read.getRaster();
 
         // Validate the number of bands
         int numBands = raster.getNumBands();
         if (numBands <= 0) {
-            throw new IIOException("Not a valid image.");
+//            throw new IIOException("Not a valid image.");
         }
 
         int iLen = raster.getWidth();

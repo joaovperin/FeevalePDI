@@ -16,7 +16,7 @@
  */
 package br.jpe.dip.screen;
 
-import fxml.InicioController;
+import fxml.output.OutputController;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -36,7 +36,7 @@ public class DigitalImageProcessingApp extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        Controller root = new InicioController();
+        Controller root = new OutputController();
         root.setStage(primaryStage);
 
         Scene scene = new Scene((Parent) root);
@@ -47,7 +47,7 @@ public class DigitalImageProcessingApp extends Application {
 //            System.out.println("***".concat(e.getMessage()));
 //        }
         // Stage config
-        primaryStage.setTitle("Feevale DIP");
+        primaryStage.setTitle("Funerária Pesadelo Eterno");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();

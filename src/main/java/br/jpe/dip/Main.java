@@ -39,9 +39,9 @@ public class Main {
         System.out.println("*** Welcome to Digital Image Processing (DIP).");
 
         // Hard-coded for the teacher to evaluate the exercise :P
-        args = new String[]{
-            "Figura_Desafio_1.png"
-        };
+//        args = new String[]{
+//            "Figura_Desafio_1.png"
+//        };
 
         // Command line or window based
         if (args == null || args.length == 0) {
