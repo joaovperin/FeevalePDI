@@ -17,8 +17,11 @@
 package br.jpe.dip.funeraria;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -26,16 +29,33 @@ import javafx.scene.image.Image;
  */
 public abstract class FunerariaChallenge {
 
-    public abstract Image getProcessedImage(Image img);
+    public String getInformationText() {
+        return "This Challenge hasn't an information text yet because the programmer is lazy. Please bother him until he create one :D";
+    }
+
+    public abstract Image getProcessedImage(String imgName);
 
     /**
      * Converts a given Image into a BufferedImage
      *
-     * @param img The Image to be converted
+     * @param imgName The Image to be converted
      * @return The converted BufferedImage
      */
-    protected static BufferedImage toBufferedImage(Image img) {
-        return SwingFXUtils.fromFXImage(img, null);
+    protected static BufferedImage toBufferedImage(String imgName) {
+        try {
+            return getFromResources(imgName);
+        } catch (IOException ex) {
+            throw new RuntimeException("fail to load image :/");
+        }
+    }
+
+    protected static Image toFxImage(BufferedImage img) {
+        return SwingFXUtils.toFXImage(img, null);
+    }
+
+    protected static BufferedImage getFromResources(String imgName) throws IOException {
+        URL url = FunerariaChallenge.class.getClassLoader().getResource(imgName);
+        return ImageIO.read(url);
     }
 
 }

@@ -64,6 +64,7 @@ public abstract class OutputBase extends AnchorPane {
         button.setLayoutX(215.0);
         button.setLayoutY(8.0);
         button.setMnemonicParsing(false);
+        button.setOnMouseReleased(this::showTitleInfo);
         button.setPrefHeight(31.0);
         button.setPrefWidth(239.0);
         button.setText("Funerárea Pesadelo Eterno");
@@ -100,7 +101,7 @@ public abstract class OutputBase extends AnchorPane {
         button1.setLayoutX(627.0);
         button1.setLayoutY(8.0);
         button1.setMnemonicParsing(false);
-        button1.setOnMouseReleased(this::runChallenge);
+        button1.setOnMouseReleased(this::showChallengeInfo);
         button1.setPrefHeight(31.0);
         button1.setPrefWidth(33.0);
         button1.setText("?");
@@ -118,7 +119,10 @@ public abstract class OutputBase extends AnchorPane {
 
     }
 
+    protected abstract void showTitleInfo(javafx.scene.input.MouseEvent mouseEvent);
+
     protected abstract void runChallenge(javafx.scene.input.MouseEvent mouseEvent);
 
+    protected abstract void showChallengeInfo(javafx.scene.input.MouseEvent mouseEvent);
 
 }

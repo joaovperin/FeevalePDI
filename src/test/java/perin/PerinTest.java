@@ -14,24 +14,35 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.jpe.dip.funeraria;
+package perin;
 
-import javafx.scene.image.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
 
 /**
  *
  * @author Perin
  */
-public class FailedChallenge extends FunerariaChallenge {
+public class PerinTest {
 
-    @Override
-    public String getInformationText() {
-        return "THIS IS A FAILED CHALLENGE AND MAY NEVER HAPPEN. IF YOU CAN SEE THAT I'M A BAD PROGRAMMER D:\n\n\n...or you hacked my app. ^^";
+    public static void main(String[] args) throws Exception {
+        new PerinTest().run();
     }
 
-    @Override
-    public Image getProcessedImage(String imgName) {
-        return toFxImage(toBufferedImage(imgName));
+    public void run() throws Exception {
+        System.out.println("*** IMG: ");
+        BufferedImage img = getFromResources("lena.jpg");
+        System.out.println("((WID: " + img.getWidth());;
+//        img.
+    }
+
+    private BufferedImage getFromResources(String imgName) throws IOException {
+        URL url = getClass().getClassLoader().getResource(imgName);
+        BufferedImage img = ImageIO.read(url);
+        return img;
     }
 
 }

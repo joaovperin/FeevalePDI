@@ -14,24 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.jpe.dip.funeraria;
-
-import javafx.scene.image.Image;
+package br.jpe.dip.ui;
 
 /**
  *
  * @author Perin
  */
-public class FailedChallenge extends FunerariaChallenge {
-
-    @Override
-    public String getInformationText() {
-        return "THIS IS A FAILED CHALLENGE AND MAY NEVER HAPPEN. IF YOU CAN SEE THAT I'M A BAD PROGRAMMER D:\n\n\n...or you hacked my app. ^^";
-    }
-
-    @Override
-    public Image getProcessedImage(String imgName) {
-        return toFxImage(toBufferedImage(imgName));
-    }
-
+public class DummyClass {
+    
 }

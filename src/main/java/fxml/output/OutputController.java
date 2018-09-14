@@ -19,6 +19,7 @@ package fxml.output;
 import br.jpe.dip.funeraria.FailedChallenge;
 import br.jpe.dip.funeraria.FunerariaChallenge;
 import br.jpe.dip.screen.Controller;
+import br.jpe.dip.ui.utils.MessageBoxes;
 import javafx.collections.FXCollections;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Separator;
@@ -41,6 +42,8 @@ public class OutputController extends OutputBase implements Controller {
     double x0, y0, x1, y1;
     /** The image */
     private Image image;
+
+    private FunerariaChallenge challenge = new FailedChallenge();
     /** Stage where to display things */
     private Stage st;
 
@@ -81,13 +84,12 @@ public class OutputController extends OutputBase implements Controller {
         }
 
         System.out.println("Rendering exercise: " + cbVal);
-        FunerariaChallenge challenge;
         try {
             challenge = (FunerariaChallenge) Class.forName("br.jpe.dip.funeraria." + cbVal.replaceAll(" ", "")).newInstance();
         } catch (Exception ex) {
             challenge = new FailedChallenge();
         }
-        return challenge.getProcessedImage(new Image(getClass().getClassLoader().getResourceAsStream("lena.png")));
+        return challenge.getProcessedImage("lena.png");
     }
 
     // Sets the stage of this controller
@@ -101,6 +103,18 @@ public class OutputController extends OutputBase implements Controller {
         String cbVal = choiceBox.getValue().toString();
         image = getImage(cbVal);
         graphicsContext.drawImage(image, 0, 0, canvasWidth, canvasHeight);
+    }
+
+    @Override
+    protected void showTitleInfo(MouseEvent mouseEvent) {
+        System.out.println("**** CLICOU NO TITULO");
+        MessageBoxes.showInfoDialog("VOCE NAO DEERIA TER CLICADO AQUI");
+    }
+
+    @Override
+    protected void showChallengeInfo(MouseEvent mouseEvent) {
+        System.out.println("**** CLICOU NO BOTÃO INFO");
+        MessageBoxes.showInfoDialog(challenge.getInformationText());
     }
 
 }

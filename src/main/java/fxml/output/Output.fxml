@@ -24,7 +24,7 @@
                <children>
                       <Pane id="filePane" prefHeight="46.0" prefWidth="668.0" style="-fx-border-color: black;">
                      <children>
-                        <Button contentDisplay="CENTER" layoutX="215.0" layoutY="8.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="239.0" text="Funerárea Pesadelo Eterno" textAlignment="JUSTIFY" />
+                        <Button contentDisplay="CENTER" layoutX="215.0" layoutY="8.0" mnemonicParsing="false" onMouseReleased="#showTitleInfo" prefHeight="31.0" prefWidth="239.0" text="Funerárea Pesadelo Eterno" textAlignment="JUSTIFY" />
                      </children>
                       </Pane>
                   <Canvas id="canvas" height="510.0" layoutY="46.0" width="668.0" />
@@ -33,7 +33,7 @@
                <children>
                   <ChoiceBox id="cb_challenges" layoutX="7.0" layoutY="8.0" prefHeight="31.0" prefWidth="560.0" />
                   <Button id="pb_challenges" layoutX="574.0" layoutY="8.0" mnemonicParsing="false" onMouseReleased="#runChallenge" prefHeight="31.0" prefWidth="47.0" text="Run" textAlignment="JUSTIFY" />
-                  <Button id="pb_challenges" layoutX="627.0" layoutY="8.0" mnemonicParsing="false" onMouseReleased="#runChallenge" prefHeight="31.0" prefWidth="33.0" text="?" textAlignment="JUSTIFY" />
+                  <Button id="pb_challenges" layoutX="627.0" layoutY="8.0" mnemonicParsing="false" onMouseReleased="#showChallengeInfo" prefHeight="31.0" prefWidth="33.0" text="?" textAlignment="JUSTIFY" />
                </children>
             </Pane>
             </children>

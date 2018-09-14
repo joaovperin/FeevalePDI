@@ -19,11 +19,14 @@ package br.jpe.dip.funeraria;
 import br.jpe.dip.utils.Images;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.net.URL;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -32,18 +35,17 @@ import javafx.scene.image.WritableImage;
 public class Challenge1 extends FunerariaChallenge {
 
     @Override
-    public Image getProcessedImage(Image img) {
-        BufferedImage x = toBufferedImage(img);
-        int[][] mtz = Images.getAsGrayscaleMatrix(x);
-
+    public Image getProcessedImage(String imgName) {
+        BufferedImage img = toBufferedImage(imgName);
+//        int[][] mtz = Images.getAsGrayscaleMatrix(x);
 
 //        int width = 30, height = 30;
 //        WritableImage wimg = new WritableImage(width, height);
 //        PixelWriter pw = wimg.getPixelWriter();
 //        pw.setPixels(0, 0, width, height, PixelFormat.getIntArgbInstance(), mtz[0], 0, width);
-
 //        Image img = new Image(new ByteArrayInputStream(buffer));
 //        Images.getAsGrayscaleMatrix(new File(img.));
-        return new Image(getClass().getClassLoader().getResourceAsStream("Figura_Desafio_1.png"));
+        return toFxImage(img);
     }
+
 }
