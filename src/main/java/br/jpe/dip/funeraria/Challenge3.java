@@ -16,7 +16,7 @@
  */
 package br.jpe.dip.funeraria;
 
-import br.jpe.dip.commons.geo.filters.ResizeGeomProcess;
+import br.jpe.dip.commons.geo.filters.TranslateGeomProcess;
 import java.awt.image.BufferedImage;
 import javafx.scene.image.Image;
 
@@ -24,15 +24,15 @@ import javafx.scene.image.Image;
  *
  * @author Perin
  */
-public class Challenge1 extends FunerariaChallenge {
+public class Challenge3 extends FunerariaChallenge {
 
-    private final ResizeGeomProcess resize = new ResizeGeomProcess(2, 1);
+    private final TranslateGeomProcess translate = new TranslateGeomProcess(230, 100);
 
     @Override
     public Image getProcessedImage(String imgName) {
         BufferedImage inputImage = toBufferedImage(imgName);
 
-        BufferedImage etapa1 = resize.process(inputImage);
+        BufferedImage etapa1 = translate.process(inputImage);
 
         return toFxImage(etapa1);
     }

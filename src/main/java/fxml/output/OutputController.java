@@ -69,7 +69,7 @@ public class OutputController extends OutputBase implements Controller {
 
         choiceBox.setItems(FXCollections.observableArrayList(
                 "Original Image", new Separator(),
-                "Challenge 1", "Challenge 2", "Challenge 3", "Challenge 4", "Challenge 5")
+                "Challenge 1", "Challenge 2", "Challenge 3", "Challenge 4", "Challenge 5", "Challenge 6")
         );
         choiceBox.setValue(choiceBox.getItems().get(0));
 
@@ -89,7 +89,7 @@ public class OutputController extends OutputBase implements Controller {
         } catch (Exception ex) {
             challenge = new FailedChallenge();
         }
-        return challenge.getProcessedImage("lena.png");
+        return challenge.getProcessedImage("caixao.png");
     }
 
     // Sets the stage of this controller
@@ -116,5 +116,9 @@ public class OutputController extends OutputBase implements Controller {
         System.out.println("**** CLICOU NO BOTÃO INFO");
         MessageBoxes.showInfoDialog(challenge.getInformationText());
     }
+    
+    
+    // TRAZER NOTEBOOK COM TUDO OK
+    
 
 }

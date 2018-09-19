@@ -24,9 +24,9 @@ import javafx.scene.image.Image;
  *
  * @author Perin
  */
-public class Challenge1 extends FunerariaChallenge {
+public class Challenge2 extends FunerariaChallenge {
 
-    private final ResizeGeomProcess resize = new ResizeGeomProcess(2, 1);
+    private final ResizeGeomProcess resize = new ResizeGeomProcess(1, 0.7);
 
     @Override
     public Image getProcessedImage(String imgName) {
@@ -38,3 +38,4 @@ public class Challenge1 extends FunerariaChallenge {
     }
 
 }
+    

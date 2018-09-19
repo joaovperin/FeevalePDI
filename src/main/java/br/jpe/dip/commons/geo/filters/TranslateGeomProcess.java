@@ -14,27 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.jpe.dip.funeraria;
+package br.jpe.dip.commons.geo.filters;
 
-import br.jpe.dip.commons.geo.filters.ResizeGeomProcess;
+import br.jpe.dip.commons.GeometricTransformProcess;
 import java.awt.image.BufferedImage;
-import javafx.scene.image.Image;
 
 /**
  *
  * @author Perin
  */
-public class Challenge1 extends FunerariaChallenge {
+public class TranslateGeomProcess extends GeometricTransformProcess {
 
-    private final ResizeGeomProcess resize = new ResizeGeomProcess(2, 1);
+    private final double xDelta;
+    private final double yDelta;
+
+    public TranslateGeomProcess(double xDelta, double yDelta) {
+        this.xDelta = xDelta;
+        this.yDelta = yDelta;
+    }
 
     @Override
-    public Image getProcessedImage(String imgName) {
-        BufferedImage inputImage = toBufferedImage(imgName);
-
-        BufferedImage etapa1 = resize.process(inputImage);
-
-        return toFxImage(etapa1);
+    public double[][] getTransformMatrix(BufferedImage image, double x, double y) {
+        return new double[][]{
+            new double[]{1, 0, x - xDelta},
+            new double[]{0, 1, y - yDelta},
+            new double[]{0, 0, 1}
+        };
     }
 
 }
